@@ -5,7 +5,6 @@ current_datetime = datetime.now()
 today = current_datetime.strftime('%Y.%m.%d.')
 
 todayint = (today)
-# datum2 = ""
 
 print(today)
 
@@ -46,9 +45,6 @@ class Szalloda:
                 if datum in self.foglalasok[szobaszam]:
                     print("Ez a szoba erre a napra már le lett foglalva. Sajnáljuk, próbáljon másik szobát erre az időpontra.")
                     return
-                # if datum2 < int(today):
-                #     print("Időben visszamenőleg nem lehet foglalást leadni.")
-                #     return
                 self.foglalasok[szobaszam][datum] = nev
                 print(f"A foglalása sikeres volt, fizetendő {szoba.ar} Ft a helyszínen. Köszönjük hogy minket választott!")
                 return
@@ -110,7 +106,6 @@ def main():
         if valasztas == "1":
             szobaszam = input("Add meg a foglalni kívánt szoba számát: ")
             datum = input("Add meg a foglalás dátumát (Év.Hónap.Nap. (2024.04.28.) formátumban): ")
-            # datum2 = int(datum)
             nev = input("Milyen néven foglalnál?: ")
             szalloda.foglalas(szobaszam, datum, nev)
         elif valasztas == "2":
