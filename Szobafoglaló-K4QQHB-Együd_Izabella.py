@@ -4,9 +4,11 @@ from datetime import datetime
 current_datetime = datetime.now()
 today = current_datetime.strftime('%Y.%m.%d.')
 
-todayint = (today)
+today = today.replace('.', '')
 
-print(today)
+today_int = int(today)
+
+print(today_int)
 
 class Szoba(ABC):
     def __init__(self,szobaszam, ar):
@@ -44,6 +46,12 @@ class Szalloda:
                     self.foglalasok[szobaszam] = {}
                 if datum in self.foglalasok[szobaszam]:
                     print("Ez a szoba erre a napra már le lett foglalva. Sajnáljuk, próbáljon másik szobát erre az időpontra.")
+                    return
+                datum3 = datum
+                datum3 = datum3.replace('.', '')
+                datum_int = int(datum3)
+                if today_int > datum_int:
+                    print("Időben visszamenőleg nem lehet foglalást leadni.")
                     return
                 self.foglalasok[szobaszam][datum] = nev
                 print(f"A foglalása sikeres volt, fizetendő {szoba.ar} Ft a helyszínen. Köszönjük hogy minket választott!")
@@ -85,12 +93,11 @@ def main():
         szalloda.szoba_hozzáadása(Kétágyas(f"{i}", f"{25470} Ft"))
     
     
-
-    szalloda.foglalas("24", "2024.04.02.", "Antóci Dorottya")
-    szalloda.foglalas("32", "2024.04.26.", "Wunderlich József")
-    szalloda.foglalas("9", "2024.04.15.", "Csapó Attila")
-    szalloda.foglalas("23", "2024.05.17.", "Fesztbaum Béla")
-    szalloda.foglalas("10", "2024.05.26.", "Igó éva")
+    szalloda.foglalas("23", "2024.06.17.", "Fesztbaum Béla")
+    szalloda.foglalas("24", "2024.06.21.", "Antóci Dorottya")
+    szalloda.foglalas("10", "2024.06.26.", "Igó éva")
+    szalloda.foglalas("3", "2025.04.11.", "Csapó Attila")
+    szalloda.foglalas("32", "2025.05.12.", "Wunderlich József")
 
     while True:
         print("\nNapsugár Szálloda")
@@ -104,7 +111,7 @@ def main():
         valasztas = input("\nMűvelet száma: ")
 
         if valasztas == "1":
-            szobaszam = input("Add meg a foglalni kívánt szoba számát: ")
+            szobaszam = input("Add meg a foglalni kívánt szoba számát (lásd az elérhető szobáknál 1-50): ")
             datum = input("Add meg a foglalás dátumát (Év.Hónap.Nap. (2024.04.28.) formátumban): ")
             nev = input("Milyen néven foglalnál?: ")
             szalloda.foglalas(szobaszam, datum, nev)
